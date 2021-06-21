@@ -149,12 +149,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="driver.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GEngine2D.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Drawable.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GEngine2D.h" />
     <ClInclude Include="Scene.h" />
