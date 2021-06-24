@@ -18,12 +18,16 @@ void Drawable::onUpdate(float _deltaTime)
 void Drawable::draw()
 {
 	this->onDraw();
-	SDL_Rect g;
-	g.x = _position._x;
-	g.y = _position._y;
-	g.w = _size._x;
-	g.h = _size._y;
-	SDL_RenderCopy(_Renderer, _texture, NULL, &g);
+	SDL_Rect _r;
+	_r.x = _position._x;
+	_r.y = _position._y;
+	_r.w = _size._x;
+	_r.h = _size._y;
+	
+	if (_texture) {
+		_texture->onDraw();
+		SDL_RenderCopy(_Renderer, _texture->operator()(), _texture->clip(), &_r);
+	}
 
 	for (std::shared_ptr<Entity> child : _children)
 	{
@@ -71,7 +75,7 @@ void Drawable::size(Vector2D<int> _size)
 	this->_size = _size;
 }
 
-void Drawable::texture( SDL_Texture* _texture)
+void Drawable::texture( Texture* _texture)
 {
 	this->_texture = _texture;
 }

@@ -28,9 +28,9 @@ public:
 		return { this->_x * _rhs._x,this->_y * _rhs._y };
 	}
 	template<class K>
-	inline Vector2D& operator*(const K _rhs)
+	inline Vector2D operator*(const K _rhs)
 	{
-		return { this->_x * _rhs,this->_y * _rhs };
+		return Vector2D<T>( this->_x * _rhs,this->_y * _rhs );
 	}
 
 	inline Vector2D& operator=(const Vector2D& _rhs) 

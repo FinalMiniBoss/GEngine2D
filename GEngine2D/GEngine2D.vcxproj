@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedTexture.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="driver.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -157,12 +158,14 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedTexture.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GEngine2D.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,8 +1,9 @@
 #pragma once
-#include <SDL.h>
-#include "Vector.h"
+#include "Vector2D.h"
 
 #include "Entity.h"
+#include "Texture.h"
+#include "AnimatedTexture.h"
 
 class Drawable : public Entity
 {
@@ -17,7 +18,7 @@ protected:
 	Vector2D<int> _size = { 1,1 };
 	Vector2D<float> _scale = { 1,1 };
 
-	SDL_Texture* _texture = nullptr;
+	Texture* _texture = nullptr;
 
 	
 public:
@@ -46,7 +47,7 @@ public:
 	const Vector2D<int> size();
 	void size(Vector2D<int>);
 
-	void texture(SDL_Texture*);
+	void texture(Texture*);
 
 };
 
