@@ -6,7 +6,7 @@ SDL_Renderer* GEngine2D::_Renderer = NULL;
 
 long long GEngine2D::_deltaTime = 0;
 std::chrono::steady_clock::time_point GEngine2D::_frameTime = std::chrono::steady_clock::now();
-uint16_t GEngine2D::_frameLimit = 6000;
+uint16_t GEngine2D::_frameLimit = 60;
 
 void GEngine2D::Init(std::string _title) {
 
@@ -65,7 +65,7 @@ bool GEngine2D::Update()
     //
     //(std::cout << "FPS: " << round(1. / ((double)_deltaTime / 1000000000.)) << '\r').flush();
 
-    Scene::CurrentScene()->update(_frameTime);
+    Scene::CurrentScene()->update(static_cast<float>(_deltaTime)/1000000000.0);
 
 
     //
@@ -87,15 +87,12 @@ bool GEngine2D::Update()
 }
 
 void GEngine2D::Draw() {
-    //
-    //TEST:color cycle renderer
-    //
     
     if (Scene::CurrentScene() != nullptr)
     {
-        Scene::CurrentScene()->draw();
-
         SDL_RenderClear(_Renderer);
+
+        Scene::CurrentScene()->draw();
 
         SDL_RenderPresent(_Renderer);
     }

@@ -44,17 +44,23 @@ public:
     inline virtual void onDraw() {
         drawTest(_Renderer);
     }
-    inline virtual void onUpdate(std::chrono::steady_clock::time_point _frameTime)
-        {}
+    inline virtual void onUpdate(float _deltaTime)
+    {
+        for (auto& child : _children)
+        {
+            if (std::dynamic_pointer_cast<Drawable>(child))
+            {
+                std::dynamic_pointer_cast<Drawable>(child)->moveBy({ rand() % 3 - 1,rand() % 3 - 1 });
+            }
+        }
+    }
 };
 
-class TestSprite :
-    public Drawable {
 
-};
 
 int main(int argc, char* args[])
 {
+    srand(static_cast<unsigned int>(time(NULL)));
     try { GEngine2D::Init("Colors!!"); }
     catch (const std::exception& e)
     {
@@ -66,7 +72,17 @@ int main(int argc, char* args[])
     TestScene j;
     for (size_t i = 0; i < 5; i++)
     {
-        j.addChild(std::make_shared<Drawable>(GEngine2D::Renderer()));
+        std::shared_ptr<Drawable> q = 
+            std::make_shared<Drawable>(GEngine2D::Renderer());
+        q->moveTo({ rand() % 1080,rand() % 1080 });
+        q->size({ rand() % 256,rand() % 256 });
+        SDL_Surface* s = IMG_Load("circles.png");
+        SDL_SetColorKey(s, 1, SDL_MapRGB(s->format, 0xff, 0x00, 0xff));
+        SDL_Texture* t = (SDL_CreateTextureFromSurface(GEngine2D::Renderer(), s));
+        SDL_FreeSurface(s);
+        q->texture(t);
+
+        j.addChild(q);
     }
     j.present();
 

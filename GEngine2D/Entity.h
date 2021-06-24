@@ -11,7 +11,7 @@ private:
 public:
 
 
-private:
+protected:
 	std::vector<std::shared_ptr<Entity>> _children;
 	uint32_t UUID = 99;
 
@@ -25,7 +25,7 @@ public:
 	Entity* parent();
 	std::vector<std::shared_ptr<Entity>>& children();
 
-	void update(std::chrono::steady_clock::time_point);
-	virtual void onUpdate(std::chrono::steady_clock::time_point);
+	void update(float);
+	virtual void onUpdate(float);
 };
 

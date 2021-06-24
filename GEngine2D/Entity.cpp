@@ -24,15 +24,15 @@ std::vector<std::shared_ptr<Entity>>& Entity::children()
 	return _children;
 }
 
-void Entity::update(std::chrono::steady_clock::time_point _frameTime)
+void Entity::update(float _deltaTime)
 {
-	this->onUpdate(_frameTime);
+	this->onUpdate(_deltaTime);
 	for (auto& child : _children)
 	{
-		child->update(_frameTime);
+		child->update(_deltaTime);
 	}
 }
 
-void Entity::onUpdate(std::chrono::steady_clock::time_point _frameTime)
+void Entity::onUpdate(float _deltaTime)
 {
 }

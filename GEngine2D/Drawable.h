@@ -17,6 +17,8 @@ protected:
 	Vector2D<int> _size = { 1,1 };
 	Vector2D<float> _scale = { 1,1 };
 
+	SDL_Texture* _texture = nullptr;
+
 	
 public:
 	Drawable() = delete;
@@ -25,7 +27,7 @@ public:
 	Drawable& operator=(Drawable&);
 	~Drawable();
 
-	void onUpdate(std::chrono::steady_clock::time_point);
+	void onUpdate(float);
 	void draw();
 	virtual void onDraw();
 
@@ -33,8 +35,8 @@ public:
 	void hide();
 	const bool isVisible();
 
-	void moveTo(Vector2D<int>&);
-	void moveBy(Vector2D<int>&);
+	void moveTo(const Vector2D<int>&);
+	void moveBy(const Vector2D<int>&);
 	const Vector2D<int> position();
 
 	void scaleTo(Vector2D<float>&);
@@ -43,6 +45,8 @@ public:
 
 	const Vector2D<int> size();
 	void size(Vector2D<int>);
+
+	void texture(SDL_Texture*);
 
 };
 

@@ -21,6 +21,6 @@ public:
 
 	void present();
 	virtual void onDraw();
-	virtual void onUpdate(std::chrono::steady_clock::time_point);
+	virtual void onUpdate(float);
 };
 

@@ -19,4 +19,4 @@ void Scene::onDraw() {
     
 }
 
-void Scene::onUpdate(std::chrono::steady_clock::time_point _frameTime){}
+void Scene::onUpdate(float _deltaTime){}
