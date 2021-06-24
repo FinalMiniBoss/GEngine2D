@@ -65,7 +65,7 @@ bool GEngine2D::Update()
     //
     //(std::cout << "FPS: " << round(1. / ((double)_deltaTime / 1000000000.)) << '\r').flush();
 
-
+    Scene::CurrentScene()->update(_frameTime);
 
 
     //
@@ -93,7 +93,7 @@ void GEngine2D::Draw() {
     
     if (Scene::CurrentScene() != nullptr)
     {
-        Scene::CurrentScene()->draw(_Renderer);
+        Scene::CurrentScene()->draw();
 
         SDL_RenderClear(_Renderer);
 
