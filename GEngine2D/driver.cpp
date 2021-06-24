@@ -75,7 +75,7 @@ public:
 	inline virtual void onUpdate(float _deltaTime)
 	{
 		if (++counter == 5) {
-			moveBy({ rand() % 3 - 1,rand() % 3 - 1 });
+			moveBy({ rand() % 11- 5,rand() % 11 - 5 });
 			clamp(_position._x, 0, 1080 - _size._x);
 			clamp(_position._y, 0, 1080 - _size._y);
 			counter = 0;
@@ -96,7 +96,7 @@ int main(int argc, char* args[])
 	}
 
 	TestScene j;
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < 20; i++)
 	{
 		std::shared_ptr<TestSprite> q = 
 			std::make_shared<TestSprite>();
@@ -106,14 +106,13 @@ int main(int argc, char* args[])
 	}
 	j.present();
 	std::vector<AnimatedTexture::Frame> frames;
-	frames.push_back({ {000,000,128,128},30 });
-	frames.push_back({ {128,000,128,128},30 });
-	frames.push_back({ {256,000,128,128},30 });
-	frames.push_back({ {384,000,128,128},30 });
-	frames.push_back({ {000,128,128,128},30 });
-	frames.push_back({ {128,128,128,128},30 });
-	frames.push_back({ {256,128,128,128},30 });
-	frames.push_back({ {384,128,128,128},30 });
+	frames.push_back({ {128,000,128,128},256 });
+	frames.push_back({ {000,128,128,128},256 });
+	frames.push_back({ {000,000,128,128},256 });
+
+
+
+
 	std::dynamic_pointer_cast<TestSprite>(j.children()[j.children().size() - 1]).get()->texture(new AnimatedTexture("circles.png", frames));
 	while(GEngine2D::Update());   
 
