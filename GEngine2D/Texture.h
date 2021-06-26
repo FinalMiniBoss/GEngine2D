@@ -8,10 +8,11 @@ class Texture
 {
 protected:
 	SDL_Texture* _texture = nullptr;
-	SDL_Rect _clip;
+	SDL_Rect _clip = { 0,0,0,0 };
 public:
 	Texture() = default;
 	Texture(std::string);
+	Texture(SDL_Texture*);
 	~Texture();
 
 	bool setClip(Rect<int>);

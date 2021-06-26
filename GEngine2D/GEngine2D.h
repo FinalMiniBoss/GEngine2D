@@ -8,6 +8,8 @@
 #include <math.h>
 #include <algorithm>
 
+#include "Label.h"
+
 class Scene;
 class GEngine2D {
     static SDL_Window* _Window;

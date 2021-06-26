@@ -62,11 +62,11 @@ class TestSprite :
 {
 	int counter = rand() % 5;
 public:
-	inline TestSprite():
+	inline TestSprite() :
 		Drawable(GEngine2D::Renderer())
 	{
 		size({ rand() % (257 - 32) + 32,rand() % (257 - 32) + 32 });
-		moveTo({ rand() % 1080-_size._x+1,rand() % 1080-_size._y+1 });
+		moveTo({ rand() % 1080 - _size._x + 1,rand() % 1080 - _size._y + 1 });
 		std::string k = "circles.png";
 		Texture* t = new Texture(k);
 		t->setClip({ (Vector2D<int>(rand() % 4,rand() % 2) * 128),Vector2D<int>(128,128) });
@@ -75,11 +75,31 @@ public:
 	inline virtual void onUpdate(float _deltaTime)
 	{
 		if (++counter == 5) {
-			moveBy({ rand() % 11- 5,rand() % 11 - 5 });
+			moveBy({ rand() % 11 - 5,rand() % 11 - 5 });
 			clamp(_position._x, 0, 1080 - _size._x);
 			clamp(_position._y, 0, 1080 - _size._y);
 			counter = 0;
 		}
+	}
+};
+class TestWalk :
+	public Drawable
+{
+public:
+	inline TestWalk() :
+		Drawable(GEngine2D::Renderer())
+	{
+		size({ 64,128 });
+		moveTo({ 506,476 });
+		std::vector<AnimatedTexture::Frame> frames;
+		for (int i = 1; i < 10; i++)
+		{
+			frames.push_back({ {64 * i,0,64,128},5 });
+		}
+		_texture = new AnimatedTexture("Walk.png", frames);
+	}
+	inline void onDraw() {
+		;
 	}
 };
 
@@ -96,25 +116,26 @@ int main(int argc, char* args[])
 	}
 
 	TestScene j;
-	for (size_t i = 0; i < 20; i++)
-	{
-		std::shared_ptr<TestSprite> q = 
-			std::make_shared<TestSprite>();
-		
+	std::shared_ptr<TestWalk> walker = std::make_shared<TestWalk>();
+	j.addChild(walker);
+	std::shared_ptr<Label> label = std::make_shared<Label>();
+	std::string font = "font.ttf";
+	std::string text = "This is a label.";
+	label.get()->font(font);
+	label.get()->text(text);
+	label.get()->moveTo({ 100,100 });
+	j.addChild(label);
 
-		j.addChild(q);
-	}
+	std::shared_ptr<Label> label2 = std::make_shared<Label>();
+	std::string text2 = "This is another label.";
+	label2.get()->font(font);
+	label2.get()->text(text2);
+	label2.get()->moveTo({ 132,132 });
+	j.addChild(label2);
+
 	j.present();
-	std::vector<AnimatedTexture::Frame> frames;
-	frames.push_back({ {128,000,128,128},256 });
-	frames.push_back({ {000,128,128,128},256 });
-	frames.push_back({ {000,000,128,128},256 });
 
-
-
-
-	std::dynamic_pointer_cast<TestSprite>(j.children()[j.children().size() - 1]).get()->texture(new AnimatedTexture("circles.png", frames));
-	while(GEngine2D::Update());   
+	while (GEngine2D::Update());
 
 	GEngine2D::Close();
 

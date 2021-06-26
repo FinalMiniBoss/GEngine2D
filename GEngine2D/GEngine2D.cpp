@@ -36,6 +36,7 @@ void GEngine2D::Init(std::string _title) {
 
 	//set window icon
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) throw std::exception(IMG_GetError());
+	if (TTF_Init() == -1)throw std::exception(TTF_GetError());
 	SDL_SetWindowIcon(_Window, IMG_Load("circles.png"));
 	return;
 

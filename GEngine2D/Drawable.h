@@ -22,7 +22,7 @@ protected:
 
 	
 public:
-	Drawable() = delete;
+	Drawable() = default;
 	Drawable(SDL_Renderer*);
 	Drawable(Drawable&);
 	Drawable& operator=(Drawable&);
