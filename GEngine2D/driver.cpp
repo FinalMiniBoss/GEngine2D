@@ -82,6 +82,26 @@ public:
 		}
 	}
 };
+class TestWalk :
+	public Drawable
+{
+public:
+	inline TestWalk() :
+		Drawable(GEngine2D::Renderer())
+	{
+		size({ 64,128 });
+		moveTo({ 506,476 });
+		std::vector<AnimatedTexture::Frame> frames;
+		for (int i = 1; i < 10; i++)
+		{
+			frames.push_back({ {64 * i,0,64,128},5 });
+		}
+		_texture = new AnimatedTexture("Walk.png", frames);
+	}
+	inline void onDraw() {
+		;
+	}
+};
 
 
 int main(int argc, char* args[])
@@ -98,22 +118,16 @@ int main(int argc, char* args[])
 	TestScene j;
 	for (size_t i = 0; i < 20; i++)
 	{
-		std::shared_ptr<TestSprite> q = 
-			std::make_shared<TestSprite>();
+		//std::shared_ptr<TestSprite> q = 
+			//std::make_shared<TestSprite>();
 		
 
-		j.addChild(q);
+		//j.addChild(q);
 	}
+	std::shared_ptr<TestWalk> q = std::make_shared<TestWalk>();
+	j.addChild(q);
 	j.present();
-	std::vector<AnimatedTexture::Frame> frames;
-	frames.push_back({ {128,000,128,128},256 });
-	frames.push_back({ {000,128,128,128},256 });
-	frames.push_back({ {000,000,128,128},256 });
-
-
-
-
-	std::dynamic_pointer_cast<TestSprite>(j.children()[j.children().size() - 1]).get()->texture(new AnimatedTexture("circles.png", frames));
+	
 	while(GEngine2D::Update());   
 
 	GEngine2D::Close();
