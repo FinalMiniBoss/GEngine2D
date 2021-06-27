@@ -35,7 +35,7 @@ void GEngine2D::Init(std::string _title) {
 	if (_Renderer == NULL) throw std::exception(SDL_GetError());
 
 	//set window icon
-	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) throw std::exception(IMG_GetError())
+	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) throw std::exception(IMG_GetError());
 
 	if (TTF_Init() == -1) throw std::exception(TTF_GetError());
 
