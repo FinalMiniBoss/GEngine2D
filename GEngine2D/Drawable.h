@@ -18,6 +18,8 @@ protected:
 	Vector2D<int> _size = { 1,1 };
 	Vector2D<float> _scale = { 1,1 };
 
+	Vector2D<float> _anchorPoint = { 0,0 };
+
 	Texture* _texture = nullptr;
 
 	
@@ -28,9 +30,23 @@ public:
 	Drawable& operator=(Drawable&);
 	~Drawable();
 
+	void setAnchor(Vector2D<float>);
+
 	void onUpdate(float);
 	void draw();
 	virtual void onDraw();
+
+
+	virtual void onClick(int);
+
+
+	virtual void onHold(int);
+
+
+	virtual void onRelease(int);
+
+
+	virtual void onScroll(int);
 
 	void show();
 	void hide();
@@ -48,6 +64,7 @@ public:
 	void size(Vector2D<int>);
 
 	void texture(Texture*);
+
 
 };
 

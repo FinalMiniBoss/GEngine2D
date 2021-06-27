@@ -9,6 +9,8 @@
 #include <algorithm>
 
 #include "Label.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 
 class Scene;
 class GEngine2D {

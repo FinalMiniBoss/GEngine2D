@@ -85,21 +85,45 @@ public:
 class TestWalk :
 	public Drawable
 {
+	AnimatedTexture* tex1;
+	AnimatedTexture* tex2;
 public:
 	inline TestWalk() :
 		Drawable(GEngine2D::Renderer())
 	{
 		size({ 64,128 });
-		moveTo({ 506,476 });
+		moveTo({ 164,228 });
+		setAnchor({ 0.5,0.5 });
 		std::vector<AnimatedTexture::Frame> frames;
 		for (int i = 1; i < 10; i++)
 		{
 			frames.push_back({ {64 * i,0,64,128},5 });
 		}
-		_texture = new AnimatedTexture("Walk.png", frames);
+		tex1 = new AnimatedTexture("Walk.png", frames);
+		for (auto& i : frames)
+		{
+			i.clip.origin._y = 128;
+		}
+		tex2 = new AnimatedTexture("Walk.png", frames);
+		_texture = tex1;
 	}
 	inline void onDraw() {
-		;
+	}
+	inline void onClick(int _b)
+	{
+		_texture = _texture == tex1 ? tex2 : tex1;
+	}
+	inline void onHold(int _b)
+	{
+		switch (_b-1)
+		{
+		case Mouse::Button::Left:
+			moveTo(Mouse::Position());
+			break;
+
+		default:
+			break;
+		}
 	}
 };
 

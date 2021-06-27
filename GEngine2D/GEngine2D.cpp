@@ -21,7 +21,7 @@ void GEngine2D::Init(std::string _title) {
 
 	_Window = SDL_CreateWindow(_title.c_str(),
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		1080, 1080, SDL_WINDOW_BORDERLESS);
+		1920, 1080, SDL_WINDOW_FULLSCREEN);
 	if(_Window==NULL) throw std::exception(SDL_GetError());
 
 	//Get window surface (might be useful)
@@ -51,6 +51,67 @@ void GEngine2D::Close() {
 
 bool GEngine2D::Update()
 {
+	Mouse::_scroll = 0;
+	SDL_GetMouseState(&Mouse::_x, &Mouse::_y);
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (Mouse::_pressed[i])
+		{
+			Mouse::_held[i] = true;
+		}
+		Mouse::_pressed[i] = false;
+		Mouse::_released[i] = false;
+	}
+	SDL_Event e; 
+	while (SDL_PollEvent(&e))
+	{
+
+		switch (e.type)
+		{
+		case SDL_KEYUP:
+			if (e.key.keysym.sym == SDLK_ESCAPE) return false;
+			break;
+
+		//
+		//Mouse Stuff
+		//
+
+		case SDL_MOUSEBUTTONDOWN:
+			Mouse::_pressed[e.button.button - 1] = true;
+			break;
+
+		case SDL_MOUSEBUTTONUP:
+			Mouse::_released[e.button.button - 1] = true;
+			break;
+
+		default:
+			break;
+		}
+
+		if (e.type == SDL_KEYUP)
+		{
+			if (e.key.keysym.sym == SDLK_ESCAPE)
+			{
+				return false;
+			}
+		}
+	}
+	//
+	//DEBUG: print current FPS
+	//
+	//(std::cout << "FPS: " << round(1. / ((double)_deltaTime / 1000000000.)) << '\r').flush();
+
+	//
+	// Mouse Stuff
+	//
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (Mouse::_released[i])
+		{
+			Mouse::_held[i] = false;
+		}
+	}
+
 	//get elapsed time between frames and limit to (_frameLimit) FPS
 
 	auto now = std::chrono::steady_clock::now();
@@ -61,12 +122,9 @@ bool GEngine2D::Update()
 	}*/
 	_frameTime = now;
 
-	//
-	//DEBUG: print current FPS
-	//
-	//(std::cout << "FPS: " << round(1. / ((double)_deltaTime / 1000000000.)) << '\r').flush();
+	
 
-	Scene::CurrentScene()->update(static_cast<float>(_deltaTime)/1000000000.0);
+	Scene::CurrentScene()->update(static_cast<float>(_deltaTime)/1000000000.0f);
 
 
 	//
