@@ -23,6 +23,7 @@ void Drawable::onUpdate(float _deltaTime)
 
 void Drawable::draw()
 {
+	if (!_visible) return;
 	this->onDraw();
 	SDL_Rect _r;
 	Vector2D<int> offset = { static_cast<int>(_size._x * _anchorPoint._x),
