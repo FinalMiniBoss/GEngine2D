@@ -2,18 +2,20 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <iostream>
+#include <iomanip>
 #include <memory>
 #include <string>
 #include <math.h>
 
 #include "GEngine2D.h"
+#include <algorithm>
 
 //Screen dimension constants
 
 template<class K>
 void clamp(K& _k, K _min, K _max)
 {
-	_k = fmin(_max, fmax(_min, _k));
+	_k = std::min<K>(_max, std::max<K>(_min, _k));
 }
 
 class TestScene :
@@ -44,14 +46,20 @@ class TestScene :
 		//
 		//DEBUG
 		//
-		(std::cout << "                        \rr: " << r << "\tg: " << g << "\tb: " << b << '\r').flush();
+		(std::cout << std::setfill('0')
+			<< "r: " << std::setw(3) << r
+			<< " g: " << std::setw(3) << g
+			<< " b: " << std::setw(3) << b
+			<< "\tMouse: ( " << std::setw(4) << Mouse::Position()._x
+			<< ", " << std::setw(4) << Mouse::Position()._y << " )\r").flush();
 
 		SDL_SetRenderDrawColor(_renderer, r, g, b, 0xff);
 	}
 
 public:
 	inline virtual void onDraw() {
-		drawTest(_Renderer);
+		//drawTest(_Renderer);
+		SDL_SetRenderDrawColor(_Renderer, 0xfa, 0xbc, 0xde, 0xff);
 	}
 	inline virtual void onUpdate(float _deltaTime)
 	{
@@ -76,8 +84,8 @@ public:
 	{
 		if (++counter == 5) {
 			moveBy({ rand() % 11 - 5,rand() % 11 - 5 });
-			clamp(_position._x, 0, 1080 - _size._x);
-			clamp(_position._y, 0, 1080 - _size._y);
+			clamp<int>(_position._x, 0, 1080 - _size._x);
+			clamp<int>(_position._y, 0, 1080 - _size._y);
 			counter = 0;
 		}
 	}
@@ -91,8 +99,8 @@ public:
 	inline TestWalk() :
 		Drawable(GEngine2D::Renderer())
 	{
-		size({ 64,128 });
-		moveTo({ 164,228 });
+		size({ 128,256 });
+		moveTo({ 256,256 });
 		setAnchor({ 0.5,0.5 });
 		std::vector<AnimatedTexture::Frame> frames;
 		for (int i = 1; i < 10; i++)
@@ -156,6 +164,13 @@ int main(int argc, char* args[])
 	label2.get()->text(text2);
 	label2.get()->moveTo({ 132,132 });
 	j.addChild(label2);
+
+	std::shared_ptr<Label> label3 = std::make_shared<Label>();
+	std::string text3 = "Click to change direction, Drag to move";
+	label3.get()->font(font);
+	label3.get()->text(text3);
+	label3.get()->moveTo({ 100,164 });
+	j.addChild(label3);
 
 	j.present();
 
