@@ -17,6 +17,7 @@ void Drawable::onUpdate(float _deltaTime)
 
 void Drawable::draw()
 {
+	if (!_visible) return;
 	this->onDraw();
 	SDL_Rect _r;
 	_r.x = _position._x;
