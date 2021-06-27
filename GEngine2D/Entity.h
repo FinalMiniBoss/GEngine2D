@@ -27,5 +27,15 @@ public:
 
 	void update(float);
 	virtual void onUpdate(float);
+
+	void click();
+	void hold();
+	void release();
+	void scroll();
+	virtual void onClick(int);
+	virtual void onHold(int);
+	virtual void onRelease(int);
+	virtual void onScroll(int);
+
 };
 

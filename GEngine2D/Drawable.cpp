@@ -1,4 +1,5 @@
 #include "Drawable.h"
+#include "Mouse.h"
 
 Drawable::Drawable(SDL_Renderer* _renderer) :
 	_Renderer(_renderer) {}
@@ -11,6 +12,11 @@ Drawable::~Drawable()
 {
 }
 
+void Drawable::setAnchor(Vector2D<float> _a)
+{
+	_anchorPoint = _a;
+}
+
 void Drawable::onUpdate(float _deltaTime)
 {
 }
@@ -20,8 +26,10 @@ void Drawable::draw()
 	if (!_visible) return;
 	this->onDraw();
 	SDL_Rect _r;
-	_r.x = _position._x;
-	_r.y = _position._y;
+	Vector2D<int> offset = { static_cast<int>(_size._x * _anchorPoint._x),
+							static_cast<int>(_size._y * _anchorPoint._y )};
+	_r.x = _position._x - offset._x;
+	_r.y = _position._y - offset._y;
 	_r.w = _size._x;
 	_r.h = _size._y;
 	
@@ -38,6 +46,30 @@ void Drawable::draw()
 }
 
 void Drawable::onDraw()
+{
+}
+
+
+
+void Drawable::onClick(int)
+{
+}
+
+
+
+void Drawable::onHold(int)
+{
+}
+
+
+
+void Drawable::onRelease(int)
+{
+}
+
+
+
+void Drawable::onScroll(int)
 {
 }
 
