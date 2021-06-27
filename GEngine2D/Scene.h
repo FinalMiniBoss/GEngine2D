@@ -5,11 +5,10 @@
 #include <iostream>
 #include <memory>
 
-#include "Entity.h"
-
-
-class Scene : public Entity
+#include "Drawable.h"
+class Scene : public Drawable
 {
+private:
 	static Scene* _CurrentScene;
 public:
 	static Scene* CurrentScene();
@@ -17,10 +16,11 @@ public:
 private:
 
 public:
-	Scene() = default;
-	~Scene() = default;
+	Scene();
+	~Scene();
 
 	void present();
-	void draw(SDL_Renderer* _renderer);
+	virtual void onDraw();
+	virtual void onUpdate(float);
 };
 

@@ -1,5 +1,7 @@
+#pragma once
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <string>
 #include <exception>
 #include <chrono>
@@ -7,8 +9,11 @@
 #include <math.h>
 #include <algorithm>
 
-#include "Scene.h"
+#include "Label.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 
+class Scene;
 class GEngine2D {
     static SDL_Window* _Window;
     static SDL_Surface* _Surface;
@@ -31,3 +36,4 @@ public:
     static SDL_Surface* Surface();
     static SDL_Renderer* Renderer();
 };
+#include "Scene.h"
