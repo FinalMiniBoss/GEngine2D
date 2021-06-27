@@ -9,6 +9,10 @@
 #include <math.h>
 #include <algorithm>
 
+#include "Label.h"
+#include "Keyboard.h"
+#include "Mouse.h"
+
 class Scene;
 class GEngine2D {
     static SDL_Window* _Window;

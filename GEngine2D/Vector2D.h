@@ -10,9 +10,10 @@ public:
 	inline Vector2D(T _x, T _y) : _x(_x), _y(_y) {}
 	~Vector2D() {}
 
-	inline const Vector2D& operator+(const Vector2D& _rhs) 
+	inline Vector2D& operator+(const Vector2D& _rhs) 
 	{
-		return Vector2D( this->_x + _rhs._x, this->_y + _rhs._y );
+		Vector2D q = { this->_x + _rhs._x, this->_y + _rhs._y };
+		return q;
 	}
 	inline Vector2D& operator-()              
 	{
@@ -20,7 +21,7 @@ public:
 	}
 	inline Vector2D& operator-(const Vector2D& _rhs)
 	{
-		return this + (-_rhs); 
+		return this->operator+({ -_rhs._x,-_rhs._y });
 	}
 
 	inline Vector2D& operator*(const Vector2D& _rhs)

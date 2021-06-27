@@ -6,6 +6,8 @@ Texture::Texture(std::string _path)
 	_texture = SDL_CreateTextureFromSurface(GEngine2D::Renderer(), _s);
 	SDL_FreeSurface(_s);
 }
+Texture::Texture(SDL_Texture* _t) :
+	_texture(_t){}
 
 Texture::~Texture() {}
 
