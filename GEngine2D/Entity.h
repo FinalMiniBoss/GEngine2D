@@ -15,7 +15,7 @@ protected:
 	std::vector<std::shared_ptr<Entity>> _children;
 	uint32_t UUID = 99;
 
-	Entity* _parent;
+	Entity* _parent = nullptr;
 
 public:
 	Entity();
